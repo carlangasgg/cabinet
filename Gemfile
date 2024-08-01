@@ -71,3 +71,4 @@ end
 gem "devise", "~> 4.9"
 gem 'simple_form'
 gem 'country_select'
+gem 'haml'
