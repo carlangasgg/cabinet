@@ -1,0 +1,8 @@
+= simple_form_for @doc, html: { class: 'bg-white.shadow-md.rounded.px-8.pt-6.pb-8.mb-4' } do |f|
+  .mb-4
+    = f.input :title, input_html: { class: 'form-input w-full px-4 py-2 border rounded-lg focus:outline-none focus:shadow-outline' }, label_html: { class: 'block text-gray-700 text-sm font-bold mb-2' }
+  .mb-4
+    = f.input :content, input_html: { class: 'form-input w-full px-4 py-2 border rounded-lg focus:outline-none focus:shadow-outline' }, label_html: { class: 'block text-gray-700 text-sm font-bold mb-2' }
+  .flex.items-center.justify-between
+  = f.button :submit, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+  =link_to "Cancel", docs_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'

@@ -67,3 +67,12 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "devise", "~> 4.9"
+gem 'simple_form'
+gem 'country_select'
+gem 'haml'
+
+gem "tailwindcss-rails", "~> 2.6"
+
+gem "cssbundling-rails", "~> 1.4"

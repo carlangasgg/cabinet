@@ -1,0 +1,79 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Cabinet
+    %meta{content: "width=device-width,initial-scale=1", name: "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  %body
+    %nav.bg-gray-800
+      .mx-auto.max-w-7xl.px-2.sm:px-6.lg:px-8
+        .relative.flex.h-16.items-center.justify-between
+          .absolute.inset-y-0.left-0.flex.items-center.sm:hidden
+            / Mobile menu button
+            %button.relative.inline-flex.items-center.justify-center.rounded-md.p-2.text-gray-400.hover:bg-gray-700.hover:text-white.focus:outline-none.focus:ring-2.focus:ring-inset.focus:ring-white{"aria-controls" => "mobile-menu", "aria-expanded" => "false", type: "button"}
+              %span.absolute{class: "-inset-0.5"}
+              %span.sr-only Open main menu
+              /
+                Icon when menu is closed.
+                
+                Menu open: "hidden", Menu closed: "block"
+              %svg.block.h-6.w-6{"aria-hidden" => "true", fill: "none", stroke: "currentColor", "stroke-width" => "1.5", viewbox: "0 0 24 24"}
+                %path{d: "M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5", "stroke-linecap" => "round", "stroke-linejoin" => "round"}
+              /
+                Icon when menu is open.
+                
+                Menu open: "block", Menu closed: "hidden"
+              %svg.hidden.h-6.w-6{"aria-hidden" => "true", fill: "none", stroke: "currentColor", "stroke-width" => "1.5", viewbox: "0 0 24 24"}
+                %path{d: "M6 18L18 6M6 6l12 12", "stroke-linecap" => "round", "stroke-linejoin" => "round"}
+          .flex.flex-1.items-center.justify-center.sm:items-stretch.sm:justify-start
+            .flex.flex-shrink-0.items-center
+              %img.h-8.w-auto{alt: "Your Company", src: "https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"}/
+            .hidden.sm:ml-6.sm:block
+              .flex.space-x-4
+                / Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"
+                %a.rounded-md.bg-gray-900.px-3.py-2.text-sm.font-medium.text-white{"aria-current" => "page", href: "/"} Dashboard
+                %a.rounded-md.px-3.py-2.text-sm.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Team
+                %a.rounded-md.px-3.py-2.text-sm.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Projects
+                %a.rounded-md.px-3.py-2.text-sm.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Calendar
+          .absolute.inset-y-0.right-0.flex.items-center.pr-2.sm:static.sm:inset-auto.sm:ml-6.sm:pr-0
+            %button.relative.rounded-full.bg-gray-800.p-1.text-gray-400.hover:text-white.focus:outline-none.focus:ring-2.focus:ring-white.focus:ring-offset-2.focus:ring-offset-gray-800{type: "button"}
+              %span.absolute{class: "-inset-1.5"}
+              %span.sr-only View notifications
+              %svg.h-6.w-6{"aria-hidden" => "true", fill: "none", stroke: "currentColor", "stroke-width" => "1.5", viewbox: "0 0 24 24"}
+                %path{d: "M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0", "stroke-linecap" => "round", "stroke-linejoin" => "round"}
+            / Profile dropdown
+            - if current_user
+              .relative.ml-3
+                .inline-block.relative{"data-action" => "click@window->dropdown#hide touchstart@window->dropdown#hide keydown.up->dropdown#previousItem keydown.down->dropdown#nextItem keydown.esc->dropdown#hide", "data-controller" => "dropdown"}
+                  %button.py-1.bg-blue-500.text-white.text-sm.rounded{class: "px-2.5", "data-action" => "dropdown#toggle:stop"}
+                    =current_user.email
+                    %svg.inline-block.fill-current.h-4.w-4{viewbox: "0 0 20 20", xmlns: "http://www.w3.org/2000/svg"}
+                      %path{d: "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"}
+                  .hidden.absolute.top-4.right-0.z-10.mt-5.flex.w-screen.max-w-max{"data-dropdown-target" => "menu"}
+                    .text-sm.bg-white.shadow-lg.rounded.border.overflow-hidden.w-32
+                      %a.no-underline.block.pl-4.py-2.text-gray-900.bg-white.hover:bg-gray-100.whitespace-nowrap.focus:bg-gray-100{"data-dropdown-target" => "menuItem", href: "#{edit_user_registration_path}"} Settings
+                      %hr.border-t/
+                      %a.no-underline.block.pl-4.py-2.text-gray-900.bg-white.hover:bg-gray-100.whitespace-nowrap.focus:bg-gray-100{"data-dropdown-target" => "menuItem"}
+                        = link_to "Sign out", destroy_user_session_path
+            - else
+              .relative.ml-3
+                .inline-block.relative
+                  %button.py-1.bg-blue-500.text-white.text-sm.rounded{class: "px-2.5"}
+                    = link_to "Sign in", new_user_session_path
+      / Mobile menu, show/hide based on menu state.
+      #mobile-menu.sm:hidden
+        .space-y-1.px-2.pb-3.pt-2
+          / Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"
+          %a.block.rounded-md.bg-gray-900.px-3.py-2.text-base.font-medium.text-white{"aria-current" => "page", href: "#"} Dashboard
+          %a.block.rounded-md.px-3.py-2.text-base.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Team
+          %a.block.rounded-md.px-3.py-2.text-base.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Projects
+          %a.block.rounded-md.px-3.py-2.text-base.font-medium.text-gray-300.hover:bg-gray-700.hover:text-white{href: "#"} Calendar
+    %p.notice= notice
+    %p.alert= alert
+    = yield

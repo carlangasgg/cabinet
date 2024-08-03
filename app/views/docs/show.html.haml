@@ -1,0 +1,9 @@
+.w-full.max-w-3xl.mx-auto
+  %div.bg-gray-100.p-4.mb-4.rounded.shadow
+    %h1.block.text-gray-700.text-2xl.font-bold.mb-4= @doc.title
+    %p.block.text-gray-700.text-lg.mb-2= @doc.content
+    
+    .text-left.mt-4
+      =link_to "All Docs", docs_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+      =link_to "Fix Doc", edit_doc_path(@doc), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+      =link_to "Trash It", doc_path(@doc), class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
