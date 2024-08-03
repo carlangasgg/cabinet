@@ -10,16 +10,16 @@ feature 'Creating Doc' do
   scenario 'can create job' do
     # visit root route
     visit '/'
-      # click create post link
-      click_link 'Create Doc'
-      # fill in the form with needed information
-      fill_in 'Title', with: 'title'
-      fill_in 'Content', with: 'content'
-      # submit button
-      click_button 'Create Doc'
-      # expect page
-      expect(page).to have_content('title')
-      expect(page).to have_content('content')
+    # click create post link
+    click_link 'Create Doc'
+    # fill in the form with needed information
+    fill_in 'Title', with: 'title'
+    fill_in 'Content', with: 'content'
+    # submit button
+    click_button 'Create Doc'
+    # expect page
+    expect(page).to have_content('title')
+    expect(page).to have_content('content')
 
   end
 end
